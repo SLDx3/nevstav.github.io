@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Для Нади ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* чтобы не выделялся текст случайно */
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ff9a9e 0%, #fecfef 50%, #ffe6f0 100%);
+            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* контейнер с прозрачным фоном и мягкой тенью */
+        .card {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 64px 48px 64px 48px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            padding: 2rem 1.8rem 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            animation: floatIn 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes floatIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c71f3e, #ff4d6d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 5px rgba(255, 80, 120, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .heartbeat {
+            animation: pulseHeart 1.4s infinite ease;
+            display: inline-block;
+            font-size: 2.2rem;
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 70, 100, 0.5);}
+            50% { transform: scale(1.2); text-shadow: 0 0 12px #ff3366; }
+            100% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 70, 100, 0);}
+        }
+
+        .sub-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e84367;
+            background: rgba(255,235,240,0.7);
+            display: inline-block;
+            padding: 0.1rem 1rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            margin: 10px 0;
+        }
+
+        .message {
+            font-size: 1.3rem;
+            line-height: 1.45;
+            margin: 25px 0 20px;
+            color: #2d1b2e;
+            font-weight: 500;
+            background: rgba(255,248,245,0.7);
+            padding: 14px 16px;
+            border-radius: 42px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        }
+
+        .question {
+            background: #ffdee9;
+            border-radius: 50px;
+            padding: 12px 10px;
+            margin: 20px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b32d4a;
+            display: inline-block;
+            width: auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 20px;
+        }
+
+        .btn {
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+            background: white;
+            color: #c43b5a;
+            border: 1px solid #ffb7c5;
+        }
+
+        .btn-yes {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 18px #ff4d6d60;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            background: #e63950;
+            box-shadow: 0 12px 22px #ff336670;
+        }
+
+        .btn-no {
+            background: #fff0f2;
+            color: #a13e55;
+            border: 1px solid #ffb7c5;
+        }
+
+        .btn-no:hover {
+            background: #ffe0e6;
+            transform: translateY(-2px);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .heart-emoji {
+            position: absolute;
+            font-size: 24px;
+            user-select: none;
+            animation: floatUp 4s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        .response-area {
+            margin-top: 25px;
+            background: rgba(255,255,240,0.8);
+            border-radius: 40px;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: #831d3b;
+            backdrop-filter: blur(5px);
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .small-note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 8px;
+            font-weight: normal;
+        }
+
+        .extra-love {
+            font-size: 1rem;
+            margin: 12px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .extra-love span {
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.3rem;
+        }
+
+        .extra-love span:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 1.5rem 1.2rem 2rem;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+            .message {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 10px 22px;
+                font-size: 1rem;
+            }
+        }
+
+        footer {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div class="card">
+    <h1>
+        <span class="heartbeat">❤️</span> 
+        Надя, я тебя люблю 
+        <span class="heartbeat">❤️</span>
+    </h1>
+    <div class="sub-name">
+        ✨ Надюша ✨
+    </div>
+    
+    <div class="message">
+        💌 Знаю, что мы почти не общались и толком не знакомы. <br>
+        Но мне очень хочется сказать тебе это... Ты особенная. 
+        И твоя улыбка (даже мысленно) делает этот мир светлее 💕
+    </div>
+
+    <div class="question">
+        🌸 Давай встречаться? 🌸
+    </div>
+    
+    <div class="button-group">
+        <button class="btn btn-yes" id="yesButton">💖 ДА! 💖</button>
+        <button class="btn btn-no" id="noButton">😌 Нет, но спасибо</button>
+    </div>
+
+    <div class="response-area" id="responseArea">
+        <span>❤️‍🔥 Нажми на сердечко или на кнопку ❤️‍🔥</span>
+        <div class="extra-love">
+            <span class="click-love">❤️</span>
+            <span class="click-love">💗</span>
+            <span class="click-love">💖</span>
+            <span class="click-love">💘</span>
+        </div>
+    </div>
+    <div class="small-note">
+        Я пойму любой твой ответ, правда 😊 Просто хотел, чтобы ты знала — ты замечательная.
+    </div>
+    <footer>💌 обнимаю</footer>
+</div>
+
+<script>
+    (function() {
+        // Контейнер для анимированных сердечек
+        const heartsContainer = document.getElementById('floatingHearts');
+        const responseDiv = document.getElementById('responseArea');
+
+        // Функция создания летающего сердечка (эмодзи или символ)
+        function createFloatingHeart(x, y, symbol = '❤️') {
+            const heart = document.createElement('div');
+            heart.className = 'heart-emoji';
+            heart.innerText = symbol;
+            const size = Math.floor(Math.random() * 24) + 18; // 18px - 42px
+            heart.style.fontSize = size + 'px';
+            heart.style.left = (x || Math.random() * window.innerWidth) + 'px';
+            heart.style.top = (y || window.innerHeight - 20) + 'px';
+            heart.style.opacity = Math.random() * 0.6 + 0.5;
+            heart.style.position = 'fixed';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '1000';
+            const duration = Math.random() * 2 + 2.5; // 2.5-4.5s
+            heart.style.animation = `floatUp ${duration}s linear forwards`;
+            heartsContainer.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // массовый фейерверк сердечек (по позиции клика или рандом)
+        function burstHearts(x, y, count = 12, symbolSet = ['❤️', '💖', '💗', '💘', '💕', '💓', '💞']) {
+            for(let i = 0; i < count; i++) {
+                const randSym = symbolSet[Math.floor(Math.random() * symbolSet.length)];
+                const offsetX = (Math.random() - 0.5) * 80;
+                const offsetY = (Math.random() - 0.5) * 60;
+                setTimeout(() => {
+                    createFloatingHeart(x + offsetX, y + offsetY, randSym);
+                }, i * 30);
+            }
+        }
+
+        // автоматический дождь из сердечек (каждые 1.5 секунды по 1-2)
+        let rainInterval;
+        function startGentleRain() {
+            if (rainInterval) clearInterval(rainInterval);
+            rainInterval = setInterval(() => {
+                if (document.hasFocus()) {
+                    const randX = Math.random() * window.innerWidth;
+                    createFloatingHeart(randX, window.innerHeight - 15, ['❤️','💖','🌸','💗'][Math.floor(Math.random()*4)]);
+                }
+            }, 1800);
+        }
+
+        // Остановить дождь, если нужно (но для романтики оставим)
+        startGentleRain();
+
+        // Ответ на "ДА"
+        function answerYes() {
+            responseDiv.innerHTML = `
+                <strong style="font-size:1.3rem;">💘 Урааа!! 💘</strong><br>
+                Я так счастлив, что ты согласилась! 🌹<br>
+                Обещаю быть внимательным, нежным и искренним.<br>
+                <span style="font-size:1.2rem;">💑 Надя, ты делаешь меня самым счастливым!</span>
+                <div class="small-note">✨ я напишу тебе первым(ой) ✨</div>
+            `;
+            // убрать кнопки, чтобы не давили повторно
+            document.getElementById('yesButton').disabled = true;
+            document.getElementById('noButton').disabled = true;
+            // эпический фейерверк сердечек
+            for(let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    burstHearts(window.innerWidth/2, window.innerHeight/1.5, 28, ['❤️','💖','💘','💗','💕','💞','❤️‍🔥']);
+                }, i * 400);
+            }
+            // дополнительный взрыв через 0.3 сек
+            setTimeout(() => {
+                burstHearts(window.innerWidth/2, window.innerHeight/2, 40, ['❤️','💖','💗','💓']);
+            }, 200);
+            // также добавить конфетти-сердца
+            const happySong = () => {
+                for(let i=0;i<12;i++) {
+                    setTimeout(()=> createFloatingHeart(Math.random()*window.innerWidth, window.innerHeight-30, '❤️'), i*60);
+                }
+            };
+            happySong();
+        }
+
+        // Ответ на "НЕТ" (с пониманием)
+        function answerNo() {
+            responseDiv.innerHTML = `
+                <span style="font-size:1.2rem;">🍃 Я тебя прекрасно понимаю 🍃</span><br>
+                Спасибо за честность! 😊<br>
+                Ты классная, и пусть у тебя всё сложится замечательно ✨<br>
+                <span class="small-note">❤️ Я рад, что решился сказать — и ни о чем не жалею.</span>
+                <div style="margin-top:6px">💫 Останемся друзьями? 💫</div>
+            `;
+            // тоже выключаем кнопки, чтобы не спамить
+            document.getElementById('yesButton').disabled = true;
+            document.getElementById('noButton').disabled = true;
+            // но запустим красивый, спокойный дождь из сердечек с ноткой нежности
+            for(let i=0;i<35;i++) {
+                setTimeout(() => {
+                    createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight-20, ['💕','💓','🌸','✨','💖'][Math.floor(Math.random()*5)]);
+                }, i*100);
+            }
+            // добавим одно большое сердечко в центр через секунду
+            setTimeout(() => {
+                const centerX = window.innerWidth/2;
+                const centerY = window.innerHeight/2;
+                for(let s=0;s<16;s++) {
+                    setTimeout(()=> createFloatingHeart(centerX-20+Math.random()*40, centerY-20+Math.random()*40, '💗'), s*40);
+                }
+            }, 500);
+        }
+
+        // обработчики кнопок
+        const yesBtn = document.getElementById('yesButton');
+        const noBtn = document.getElementById('noButton');
+
+        yesBtn.addEventListener('click', (e) => {
+            const rect = yesBtn.getBoundingClientRect();
+            burstHearts(rect.left + rect.width/2, rect.top + rect.height/2, 18, ['❤️','💖','💘']);
+            answerYes();
+        });
+
+        noBtn.addEventListener('click', (e) => {
+            const rect = noBtn.getBoundingClientRect();
+            burstHearts(rect.left + rect.width/2, rect.top + rect.height/2, 12, ['💕','🌸','💓']);
+            answerNo();
+        });
+
+        // добавим кликабельные сердечки внизу (доп. анимация)
+        const loveEmojis = document.querySelectorAll('.click-love');
+        loveEmojis.forEach(emoji => {
+            emoji.addEventListener('click', (e) => {
+                const rect = emoji.getBoundingClientRect();
+                burstHearts(rect.left + rect.width/2, rect.top + rect.height/2, 14, ['❤️','💖','💗','💘','❤️‍🔥']);
+                // написать в ответную зону нежное сообщение
+                const messages = [
+                    "❤️ Ты классная!",
+                    "💖 Спасибо, что зашла сюда",
+                    "🌸 Твоя улыбка — как свет",
+                    "💞 Надя, ты чудо",
+                    "💕 я очень рад этому моменту"
+                ];
+                const randMsg = messages[Math.floor(Math.random() * messages.length)];
+                responseDiv.innerHTML = `<span style="font-size:1.1rem;">✨ ${randMsg} ✨</span><div class="small-note">🥰 сердечко в ответ 🥰</div>`;
+                setTimeout(() => {
+                    if(!yesBtn.disabled && !noBtn.disabled) {
+                        responseDiv.innerHTML = `<span>❤️‍🔥 Нажми на сердечко или на кнопку ❤️‍🔥</span>
+                        <div class="extra-love">
+                            <span class="click-love">❤️</span>
+                            <span class="click-love">💗</span>
+                            <span class="click-love">💖</span>
+                            <span class="click-love">💘</span>
+                        </div>`;
+                        // перепривязываем события к новым спанам (т.к innerHTML обновил dom)
+                        rebindLoveSpans();
+                    }
+                }, 2000);
+            });
+        });
+
+        function rebindLoveSpans() {
+            const newSpans = document.querySelectorAll('.click-love');
+            newSpans.forEach(span => {
+                span.removeEventListener('click', ()=> {});
+                span.addEventListener('click', (e) => {
+                    const rect = span.getBoundingClientRect();
+                    burstHearts(rect.left + rect.width/2, rect.top + rect.height/2, 14, ['❤️','💖','💗','💘']);
+                    const msgs = ["💖 Нежность", "💞 Ты потрясающая", "🌸 Обаяшка", "✨ Надя ❤️"];
+                    const randMsg = msgs[Math.floor(Math.random() * msgs.length)];
+                    responseDiv.innerHTML = `<span style="font-size:1rem;">✨ ${randMsg} ✨</span><div class="small-note">🥰 обнимаю виртуально 🥰</div>`;
+                    setTimeout(() => {
+                        if(!yesBtn.disabled && !noBtn.disabled) {
+                            responseDiv.innerHTML = `<span>❤️‍🔥 Нажми на сердечко или на кнопку ❤️‍🔥</span>
+                            <div class="extra-love">
+                                <span class="click-love">❤️</span>
+                                <span class="click-love">💗</span>
+                                <span class="click-love">💖</span>
+                                <span class="click-love">💘</span>
+                            </div>`;
+                            rebindLoveSpans();
+                        }
+                    }, 1800);
+                });
+            });
+        }
+
+        // добавим событие клика по карточке (по бокам) тоже можно легкие сердечки
+        document.body.addEventListener('click', (e) => {
+            // если клик не по кнопкам и не по сердечкам - легкий романтический эффект
+            if(!e.target.closest('.btn') && !e.target.closest('.click-love')) {
+                const x = e.clientX;
+                const y = e.clientY;
+                if(x && y) {
+                    for(let i=0;i<4;i++) {
+                        setTimeout(()=>{
+                            createFloatingHeart(x + (Math.random()-0.5)*30, y + (Math.random()-0.5)*30, ['❤️','💗'][Math.floor(Math.random()*2)]);
+                        }, i*50);
+                    }
+                }
+            }
+        });
+
+        // также при загрузке создадим несколько сердечек в знак приветствия
+        window.addEventListener('load', () => {
+            for(let i=0;i<22;i++) {
+                setTimeout(() => {
+                    createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight - 10, ['❤️','💖','💕'][Math.floor(Math.random()*3)]);
+                }, i*120);
+            }
+            // если в телеграм-вэб-приложении - можно расширить 
+            if(window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.expand();
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.enableClosingConfirmation();
+            }
+        });
+    })();
+</script>
+</body>
+</html>
